@@ -3,7 +3,6 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import FormInput from './../forms/FormInput';
 import Button from './../forms/Button';
 import { CountryDropdown } from 'react-country-region-selector';
-import { apiInstance } from './../../Utils';
 import { selectCartTotal, selectCartItemsCount, selectCartItems } from './../../redux/Cart/cart.selectors';
 import { saveOrderHistory } from './../../redux/Orders/orders.actions';
 import { createStructuredSelector } from 'reselect';
@@ -95,7 +94,7 @@ const PaymentDetails = () => {
         if (!error) {
             try {
                 const { id } = paymentMethod
-                const response = await axios.post("http://localhost:4000/payment", {
+                const response = await axios.post("https://estore-global.herokuapp.com/payment", {
                     amount: total * 100,
                     id
                 })
@@ -128,62 +127,6 @@ const PaymentDetails = () => {
         } else {
             console.log(error.message + "q12121212")
         }
-
-
-        // apiInstance.post('/payments/create', {
-
-        //     shipping: {
-        //         name: recipientName,
-        //         address: {
-        //             ...shippingAddress
-        //         }
-        //     }
-        // }).then(({ data: clientSecret }) => {
-
-        //     stripe.createPaymentMethod({
-        //         type: 'card',
-        //         card: cardElement,
-        //         billing_details: {
-        //             name: nameOnCard,
-        //             address: {
-        //                 ...billingAddress
-        //             },
-        //             phone: '1234567890',
-        //             email: 'hello@test.com'
-        //         }
-
-        //     }).then(({ paymentMethod }) => {
-
-        //         stripe.confirmCardPayment(clientSecret, {
-        //             payment_method: paymentMethod.id
-        //         })
-        //             .then(({ paymentIntent }) => {
-
-        //                 const configOrder = {
-        //                     orderTotal: total,
-        //                     orderItems: cartItems.map(item => {
-        //                         const { documentID, productThumbnail, productName,
-        //                             productPrice, quantity } = item;
-
-        //                         return {
-        //                             documentID,
-        //                             productThumbnail,
-        //                             productName,
-        //                             productPrice,
-        //                             quantity
-        //                         };
-        //                     })
-        //                 }
-
-        //                 dispatch(
-        //                     saveOrderHistory(configOrder)
-        //                 );
-        //             });
-
-        //     })
-
-
-        // });
 
     };
 

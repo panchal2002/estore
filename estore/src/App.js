@@ -35,7 +35,6 @@ const App = props => {
 
   useEffect(() => {
     dispatch(checkUserSession());
-
   }, []);
 
   return (

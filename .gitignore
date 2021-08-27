@@ -2,6 +2,7 @@
 
 # dependencies
 estore/node_modules
+estore/.netlify
 /.pnp
 .pnp.js
 
