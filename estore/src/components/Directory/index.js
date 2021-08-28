@@ -15,7 +15,7 @@ const Directory = props => {
           }}
         >
           <Link to="/search/sunglasses">
-            Shop Sunglasess
+            Shop Sunglasses
           </Link>
         </div>
         <div
@@ -25,7 +25,7 @@ const Directory = props => {
           }}
         >
           <Link to="/search/roundSunglasess">
-            Shop Round Sunglasess
+            Shop Round Sunglasses
           </Link>
         </div>
       </div>
