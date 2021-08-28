@@ -32,7 +32,7 @@ const Order = () => {
             <OrderDetails order={orderDetails} />
 
             <h3>
-                Total: {orderTotal}
+                Total: ₹{orderTotal}
             </h3>
 
         </div>

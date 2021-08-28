@@ -33,7 +33,7 @@ const styles = {
 const formatText = (columnName, columnValue) => {
     switch (columnName) {
         case 'productPrice':
-            return `$${columnValue}`;
+            return `₹${columnValue}`;
         case 'productThumbnail':
             return <img src={columnValue} width={250} />;
         default:

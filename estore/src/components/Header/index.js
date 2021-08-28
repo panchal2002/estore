@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { signOutUserStart } from './../../redux/User/user.actions';
 import { selectCartItemsCount } from './../../redux/Cart/cart.selectors';
 import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
+import { checkUserIsAdmin } from './../../Utils';
 import './styles.scss';
 
 import Logo from './../../assets/logo.png';
@@ -19,9 +19,11 @@ const Header = props => {
   const [activeMenu, setActiveMenu] = useState(false);
   const dispatch = useDispatch();
   const { currentUser, totalNumCartItems } = useSelector(mapState);
+  const [isAdmin, setIsAdmin] = useState();
 
-  const [sidebar, setSidebar] = useState(false);
-  const showSidebar = () => setSidebar(!sidebar);
+  useEffect(() => {
+    setIsAdmin(checkUserIsAdmin(currentUser))
+  }, [currentUser])
 
   const signOut = () => {
     dispatch(signOutUserStart());
@@ -32,7 +34,7 @@ const Header = props => {
   }, [location]);
 
   return (
-    <header className="header">
+    <header className={!currentUser ? "hideAdmin header" : !isAdmin ? "hideAdmin header" : "header"}>
       <div className="wrap">
         <div className="logoH"></div>
         <div className="logo">
@@ -40,13 +42,8 @@ const Header = props => {
             <img src={Logo} alt="SimpleTut LOGO" />
           </Link>
         </div>
-        {/* <div className='navbar'>
-          <Link to='#' className='menu-bars'>
-            <FaIcons.FaBars onClick={showSidebar} />
-          </Link>
-        </div> */}
 
-        <nav className={sidebar ? 'nav-menu NavActive' : 'nav-menu'}>
+        <nav className='nav-menu'>
           <div className={`nav mainMenu ${activeMenu ? 'active' : ''}`}>
             <ul>
               <li>
@@ -67,8 +64,9 @@ const Header = props => {
             <ul>
               <li>
                 <Link to="/cart">
-                  Your Cart ({totalNumCartItems})
-                  <FaIcons.FaShoppingCart className="icons" />
+                  {/* Your Cart ({totalNumCartItems}) */}
+                  <FaIcons.FaShoppingCart className="icons cartIcon" />
+                  <span className="cartBucket">({totalNumCartItems})</span>
                 </Link>
               </li>
 

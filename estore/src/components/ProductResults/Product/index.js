@@ -48,7 +48,7 @@ const Product = (product) => {
                     </li>
                     <li>
                         <span className="price">
-                            £{productPrice}
+                            ₹{productPrice}
                         </span>
                     </li>
                     <li>

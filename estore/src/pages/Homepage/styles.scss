@@ -1,3 +1,12 @@
 .homepage {
   height: calc(100% - 6.5rem - 5.8rem);
+  position: relative;
+  top: 100px;
 }
+
+.hideAdminHomepage{
+  height: calc(100% - 6.5rem - 5.8rem);
+  position: relative;
+  top: 66px;
+}
+

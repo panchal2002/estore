@@ -11,21 +11,21 @@ const Directory = props => {
         <div
           className="item"
           style={{
-            backgroundImage: `url(${ShopWomen})`
+            backgroundImage: `linear-gradient(0deg, rgba(52, 73, 94, 0.7), rgba(52, 73, 94, 0.7)), url(https://c.pxhere.com/photos/d4/7e/attractive_cute_eyewear_face_fashion_man_outdoors_person-1525347.jpg!d)`
           }}
         >
-          <Link to="/search/womens">
-            Shop Womens
+          <Link to="/search/sunglasses">
+            Shop Sunglasess
           </Link>
         </div>
         <div
           className="item"
           style={{
-            backgroundImage: `url(${ShopMen})`
+            backgroundImage: `linear-gradient(0deg, rgba(52, 73, 94, 0.7), rgba(52, 73, 94, 0.7)), url(https://c.pxhere.com/photos/7d/0c/coffee_cup_takeaway_glasses_spectacles-1283797.jpg!d)`
           }}
         >
-          <Link to="/search/mens">
-            Shop Mens
+          <Link to="/search/roundSunglasess">
+            Shop Round Sunglasess
           </Link>
         </div>
       </div>

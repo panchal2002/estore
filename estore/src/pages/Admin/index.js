@@ -17,7 +17,7 @@ const Admin = props => {
     const { products } = useSelector(mapState);
     const dispatch = useDispatch();
     const [hideModal, setHideModal] = useState(true);
-    const [productCategory, setProductCategory] = useState('mens');
+    const [productCategory, setProductCategory] = useState('sunglasses');
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productPrice, setProductPrice] = useState(0);
@@ -43,7 +43,7 @@ const Admin = props => {
 
     const resetForm = () => {
         setHideModal(true);
-        setProductCategory('mens');
+        setProductCategory('sunglasses');
         setProductName('');
         setProductThumbnail('');
         setProductPrice(0);
@@ -103,11 +103,11 @@ const Admin = props => {
                         <FormSelect
                             label="Category"
                             options={[{
-                                value: "mens",
-                                name: "Mens"
+                                value: "sunglasses",
+                                name: "Sunglasses"
                             }, {
-                                value: "womens",
-                                name: "Womens"
+                                value: "roundSunglasess",
+                                name: "Round Sunglasses"
                             }]}
                             handleChange={e => setProductCategory(e.target.value)}
                         />
@@ -182,7 +182,7 @@ const Admin = props => {
                                                         {productName}
                                                     </td>
                                                     <td>
-                                                        ${productPrice}
+                                                        ₹{productPrice}
                                                     </td>
                                                     <td>
                                                         <Button onClick={() => dispatch(deleteProductStart(documentID))}>

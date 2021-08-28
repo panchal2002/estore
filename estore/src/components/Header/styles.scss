@@ -1,6 +1,11 @@
 .header {
   height: 6.5rem;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+  position: fixed;
+  width: 100%;
+  top: 34px;
+  background-color: white;
+  z-index: 10;
 
   .wrap {
     position: relative;
@@ -67,7 +72,14 @@
       .icons {
         display: none;
       }
-
+      .cartIcon{
+        display: inline;
+      }
+      .cartBucket{
+        font-size: 10px;
+        position: absolute;
+        top: -6px;
+      }
       ul, li {
         margin: 0;
         padding: 0;
@@ -101,6 +113,9 @@
 
 .mobileMenu {
   display: none;
+}
+.hideAdmin{
+  top:0;
 }
 
 
@@ -137,16 +152,15 @@
       display: block;
       position: absolute;
       height: auto;
-      width: 250px;
-      top: 100%;
-      left: -250px;
+      width: 100%;
+      top: -270px;
       z-index: 10;
       background-color: white;
       border-bottom: 1px solid lightgray;
       transition: all 0.3s;
 
       &.active {
-        left: 0px;
+        top: 100%;
       }
 
       ul li {

@@ -48,11 +48,11 @@ const ProductResults = ({ }) => {
             name: 'Show all',
             value: ''
         }, {
-            name: 'Mens',
-            value: 'mens'
+            name: 'Sunglasses',
+            value: 'sunglasses'
         }, {
-            name: 'Womens',
-            value: 'womens'
+            name: 'Round Sunglasses',
+            value: 'roundSunglasess'
         }],
         handleChange: handleFilter
     };

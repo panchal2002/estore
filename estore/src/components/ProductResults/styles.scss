@@ -3,6 +3,7 @@
     width: 100%;
     padding: 0;
     margin: 2rem 0;
+    transition: all 0.3s;
   
     .productResults {
       display: flex;
@@ -12,7 +13,7 @@
   }
   
   .product {
-    width: 33.333333333333333%;
+    width: 30%;
     margin: 0 auto 2rem;
     padding: 0 10px;
   
@@ -70,6 +71,10 @@
   
     }
   }
+  .product:hover{
+    box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.11);
+  }
+  
   
   @media only screen and (max-width: 980px) {
     .product {

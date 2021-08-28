@@ -23,7 +23,7 @@ body,
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: auto;
   font-size: 1.8rem;
   font-weight: 400;
   line-height: 1;
@@ -74,6 +74,8 @@ a, a:hover {
   max-width: 1450px;
   padding: 0 10px;
   margin: 0 auto;
+  position: relative;
+  top: 85px;
 }
 
 .controlPanel {
@@ -83,6 +85,7 @@ a, a:hover {
   min-height: 100%;
   padding: 3rem 0 6rem 25.0rem;
   border-bottom: 1px solid #d3d3d3;
+  top: 100px;
 
   .sidebar {
     position: absolute;

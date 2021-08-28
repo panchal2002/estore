@@ -56,7 +56,7 @@ const Item = (product) => {
                         </span>
                     </td>
                     <td>
-                        £{productPrice}
+                        ₹{productPrice}
                     </td>
                     <td align="center">
                         <span className="cartBtn remove" onClick={() => handleRemoveCartItem(documentID)}>
