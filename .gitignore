@@ -11,6 +11,7 @@ estore/node_modules
 # production
 estore/build
 estore/.netlify
+build
 
 
 # misc
