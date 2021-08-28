@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { fetchProductsStart } from './../../redux/Products/products.actions';
+import MultiRangeSlider from '../MultiRangeSlider/MultiRangeSlider.js';
 import Product from './Product';
 import FormSelect from './../forms/FormSelect';
 import LoadMore from './../LoadMore';
@@ -18,6 +19,9 @@ const ProductResults = ({ }) => {
     const { filterType } = useParams();
     const { products } = useSelector(mapState);
     const [searchTerm, setSearchTerm] = useState("");
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(5000);
+    const [sortCategory, setSortCategory] = useState("");
     // console.log(searchTerm);
 
     const { data, queryDoc, isLastPage } = products;
@@ -32,6 +36,17 @@ const ProductResults = ({ }) => {
         const nextFilter = e.target.value;
         history.push(`/search/${nextFilter}`);
     };
+
+    const handleSort = (e) => {
+        setSortCategory(e.target.value);
+    }
+
+    useEffect(() => {
+        dispatch(
+            fetchProductsStart({ filterType })
+        )
+    }, [sortCategory == 'default'])
+
     // console.log("Hello", products)
     if (!Array.isArray(data)) return null;
     if (data.length < 1) {
@@ -54,11 +69,26 @@ const ProductResults = ({ }) => {
             name: 'Sunglasses',
             value: 'sunglasses'
         }, {
-            name: 'Round Sunglasses',
+            name: 'Rounded Sunglasses',
             value: 'roundSunglasess'
         }],
         handleChange: handleFilter
     };
+
+    const configSort = {
+        default: 'Default',
+        options: [{
+            name: 'Default',
+            value: 'default'
+        }, {
+            name: 'Price Low - High',
+            value: 'priceLowToHigh'
+        }, {
+            name: 'Price High - Low',
+            value: 'priceHighToLow'
+        }],
+        handleChange: handleSort
+    }
 
     const handleLoadMore = () => {
         dispatch(
@@ -73,6 +103,19 @@ const ProductResults = ({ }) => {
     const configLoadMore = {
         onLoadMoreEvt: handleLoadMore,
     };
+
+    // console.log(sortCategory)
+
+    let copyData = data.slice();
+    if (sortCategory == 'priceLowToHigh') {
+        data.sort((a, b) => {
+            return a.productPrice - b.productPrice;
+        })
+    } else if (sortCategory == 'priceHighToLow') {
+        data.sort((a, b) => {
+            return b.productPrice - a.productPrice;
+        })
+    }
 
     return (
         <div className="products">
@@ -91,15 +134,34 @@ const ProductResults = ({ }) => {
                 </div>
 
             </div>
+            <div className="filters">
+                <button class="filterBtn">Filters {<FaIcons.FaChevronDown />}</button>
+                <div class="filterBtn-content">
+                    <p>Search By Category :</p>
+                    <FormSelect {...configFilters} />
+                    <p>Sort By : </p>
+                    <FormSelect {...configSort} />
+                    <p>Price Range :</p>
+                    <MultiRangeSlider
+                        min={0}
+                        max={5000}
+                        onChange={({ min, max }) => {
+                            setMaxPrice(max);
+                            setMinPrice(min);
+                        }}
+                    />
+                </div>
+            </div>
 
-            <FormSelect {...configFilters} />
 
             <div className="productResults">
                 {data.filter((val) => {
                     if (searchTerm == "") {
-                        return val;
+                        if (val.productPrice >= minPrice && val.productPrice <= maxPrice)
+                            return val;
                     } else if (val.productName.toLowerCase().includes(searchTerm.toLowerCase())) {
-                        return val;
+                        if (val.productPrice >= minPrice && val.productPrice <= maxPrice)
+                            return val;
                     }
                 }).map((product, pos) => {
                     const { productThumbnail, productName, productPrice } = product;

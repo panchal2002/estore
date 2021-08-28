@@ -25,7 +25,7 @@ const Directory = props => {
           }}
         >
           <Link to="/search/roundSunglasess">
-            Shop Round Sunglasses
+            Shop Rounded Sunglasses
           </Link>
         </div>
       </div>

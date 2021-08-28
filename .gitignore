@@ -2,7 +2,6 @@
 
 # dependencies
 estore/node_modules
-estore/.netlify
 /.pnp
 .pnp.js
 
@@ -10,7 +9,9 @@ estore/.netlify
 /coverage
 
 # production
-/build
+estore/build
+estore/.netlify
+
 
 # misc
 .DS_Store

@@ -102,6 +102,55 @@
 .product:hover{
   box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.11);
 }
+.container{
+  height: auto;
+}
+
+.filterBtn {
+  color: #111;
+  padding: 10px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filters {
+  position: relative;
+  display: inline-block;
+}
+
+.filterBtn-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.filterBtn-content p{
+  margin: 0;
+    margin-top: 1.5rem;
+}
+
+// .filterBtn-content .btn1 {
+//   color: black;
+//   padding: 12px 16px;
+//   text-decoration: none;
+//   display: block;
+// }
+
+// .filterBtn-content .btn1:hover {background-color: #ddd;}
+
+.filters:hover .filterBtn-content {
+    display: block;
+    height: 30rem;
+    width: 40rem;
+    padding-left: 2rem;
+}
+
+// .filters:hover .filterBtn {background-color: #34495e;}
   
   
   @media only screen and (max-width: 980px) {
@@ -122,6 +171,7 @@
     .products .searchBoxAndH1 .searchBar{
       margin-right: 5rem;
       width: 100%;
+      margin-bottom: 1rem;
     }
 
     .searchBoxAndH1 h1{
@@ -132,5 +182,11 @@
   @media only screen and (max-width: 650px) {
     .product{
       width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 400px) {
+    .filters:hover .filterBtn-content{
+      width: 30rem;
     }
   }
