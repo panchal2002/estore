@@ -5,9 +5,14 @@ export const saveOrderHistory = order => ({
     payload: order
 });
 
-export const getUserOrderHistory = uid => ({
+export const updateOrderApprovalStatus = (configApprovalStatus) => ({
+    type: ordersTypes.UPDATE_ORDER_APPROVAL_STATUS,
+    payload: configApprovalStatus
+});
+
+export const getUserOrderHistory = (configManageOrder) => ({
     type: ordersTypes.GET_USER_ORDER_HISTORY_START,
-    payload: uid
+    payload: configManageOrder
 });
 
 export const setUserOrderHistory = history => ({

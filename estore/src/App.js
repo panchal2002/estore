@@ -23,12 +23,15 @@ import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
-import Admin from './pages/Admin';
+import ManageProducts from './pages/Admin/ManageProducts';
+import ManageOrders from './pages/Admin/ManageOrders';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Payment from './pages/Payment';
 import Order from './pages/Order';
+import WishlistPage from './pages/WishlistPage';
 import './default.scss';
+import EditAccount from './components/EditAccount';
 
 const App = props => {
   const dispatch = useDispatch();
@@ -69,7 +72,11 @@ const App = props => {
             <Cart />
           </MainLayout>
         )} />
-
+        <Route path="/wishlist" render={() => (
+          <MainLayout>
+            <WishlistPage />
+          </MainLayout>
+        )} />
         <Route path="/payment" render={() => (
           <WithAuth>
             <MainLayout>
@@ -100,6 +107,13 @@ const App = props => {
             </DashboardLayout>
           </WithAuth>
         )} />
+        <Route path="/account" render={() => (
+          <WithAuth>
+            <DashboardLayout>
+              < EditAccount />
+            </DashboardLayout>
+          </WithAuth>
+        )} />
         <Route path="/order/:orderID" render={() => (
           <WithAuth>
             <DashboardLayout>
@@ -108,10 +122,18 @@ const App = props => {
           </WithAuth>
         )} />
 
-        <Route path="/admin" render={() => (
+        <Route path="/admin/manageproducts" render={() => (
           <WithAdminAuth>
             <AdminLayout>
-              <Admin />
+              <ManageProducts />
+            </AdminLayout>
+          </WithAdminAuth>
+        )} />
+
+        <Route path="/admin/manageorders" render={() => (
+          <WithAdminAuth>
+            <AdminLayout>
+              <ManageOrders />
             </AdminLayout>
           </WithAdminAuth>
         )} />

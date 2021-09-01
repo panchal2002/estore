@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { fetchProductsStart } from './../../redux/Products/products.actions';
+import { selectWishlistItems } from '../../redux/Wishlist/wishlist.selectors';
 import MultiRangeSlider from '../MultiRangeSlider/MultiRangeSlider.js';
 import Product from './Product';
+import { createStructuredSelector } from 'reselect';
 import FormSelect from './../forms/FormSelect';
 import LoadMore from './../LoadMore';
 import * as FaIcons from 'react-icons/fa';
@@ -11,6 +13,10 @@ import './styles.scss';
 
 const mapState = ({ productsData }) => ({
     products: productsData.products
+});
+
+const mapWishlistState = createStructuredSelector({
+    wishlistItems: selectWishlistItems
 });
 
 const ProductResults = ({ }) => {
@@ -22,6 +28,8 @@ const ProductResults = ({ }) => {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(5000);
     const [sortCategory, setSortCategory] = useState("");
+    const { wishlistItems } = useSelector(mapWishlistState);
+
     // console.log(searchTerm);
 
     const { data, queryDoc, isLastPage } = products;
@@ -30,7 +38,7 @@ const ProductResults = ({ }) => {
         dispatch(
             fetchProductsStart({ filterType })
         )
-    }, [filterType]);
+    }, [filterType, wishlistItems.length]);
 
     const handleFilter = (e) => {
         const nextFilter = e.target.value;
@@ -105,8 +113,6 @@ const ProductResults = ({ }) => {
     };
 
     // console.log(sortCategory)
-
-    let copyData = data.slice();
     if (sortCategory == 'priceLowToHigh') {
         data.sort((a, b) => {
             return a.productPrice - b.productPrice;
@@ -117,9 +123,9 @@ const ProductResults = ({ }) => {
         })
     }
 
+
     return (
         <div className="products">
-
             <div className="searchBoxAndH1">
                 <h1>
                     Browse Products
@@ -168,8 +174,9 @@ const ProductResults = ({ }) => {
                     if (!productThumbnail || !productName ||
                         typeof productPrice === 'undefined') return null;
 
+
                     const configProduct = {
-                        ...product
+                        ...product,
                     };
 
                     return (

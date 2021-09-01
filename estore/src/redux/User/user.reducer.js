@@ -22,6 +22,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         resetPasswordSuccess: action.payload
       }
+    case userTypes.EDIT_PROFILE_SUCCESS:
+      return {
+        ...state,
+        currentUser: {
+          ...action.payload.currentUser,
+          displayName: action.payload.userName,
+          phone: action.payload.phone,
+          profileImage: action.payload.profileImageUrl
+        }
+      }
     case userTypes.USER_ERROR:
       return {
         ...state,

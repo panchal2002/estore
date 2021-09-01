@@ -3,7 +3,7 @@ import ordersTypes from './orders.types';
 
 const INITIAL_STATE = {
     orderHistory: [],
-    orderDetails: {},
+    orderDetails: {}
 };
 
 const ordersReducer = (state = INITIAL_STATE, action) => {

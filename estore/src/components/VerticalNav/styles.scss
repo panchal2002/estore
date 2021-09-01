@@ -17,10 +17,6 @@
           width: 100%;
           border-bottom: 1px solid #d3d3d3;
   
-          &:first-child {
-            border-top: 1px solid #d3d3d3;
-          }
-  
           a, span {
             display: block;
             width: 100%;
@@ -37,6 +33,52 @@
         }
   
       }
+    }
+
+  }
+  .hamburgar{
+    display: none;
+  }
+
+  @media only screen and (max-width: 980px) {
+    .verticalNav .menu{
+      background-color: #34495e;
+      position: fixed;
+      top: 7rem;
+      width: 30rem;
+      height: 100%;
+      color: white;
+      left: 0;
+      padding-top: 3rem;
+      text-align: center;
+      transition: all 0.3s;
+      left: -30rem;
+    }
+    .verticalNav .menu ul{
+      border: none;
+    }
+    .verticalNav .menu ul li:first-child {
+      border: none;
+    }
+    .verticalNav .menu ul li{
+      border: none;
+    }
+    .verticalNav .menu ul li a, .verticalNav .menu ul li span{
+      color: white;
+      border: none;
+    }
+    .verticalNav .active{
+      left: 0;
+    }
+
+    .hamburgar{
+      display: block;
+      position: absolute;
+      right: -36px;
+      padding: 10px;
+      background: #34495e;
+      border-bottom-right-radius: 2rem;
+      border-top-right-radius: 2rem;
     }
   }
   

@@ -1,0 +1,67 @@
+.accountSettings{
+    width: 100%;
+}
+
+.profile{
+    background: #dddddd;
+    padding: 2rem;
+    width: 50rem;
+    padding-left: 5rem;
+    transition: all .3s;
+    cursor: pointer;
+    border-radius: 15px;
+}
+.profile:hover{
+    background: #34495e;
+    color: white;
+}
+
+.profile:hover h2{
+    color: white;
+}
+
+.profile h2{
+    display: inline;
+    line-height: 2;
+    font-size: 2rem;
+    text-transform: none;
+    transition: all 0.3s;
+}
+
+.profile h2:hover{
+    color: white;
+}
+.profile h3{
+    display: inline;
+    line-height: 2;
+    margin-left: 1rem;
+}
+
+.profileContent{
+    margin-top: 2rem;
+}
+
+.userProfileImage{
+    width: 13rem;
+    height: 13rem;
+    border: 1px solid black;
+    border-radius: 7rem;
+    overflow: hidden;
+}
+
+.userProfileImage img{
+    width: 100%;
+    height: auto;
+}
+
+.editProfileBtn{
+    width: 15rem;
+    margin-top: 1rem;
+}
+
+@media only screen and (max-width: 900px) {
+    .profile{
+        width: 100%;
+    }
+}
+

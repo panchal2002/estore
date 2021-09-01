@@ -22,8 +22,13 @@ const AdminLayout = props => {
                     <VerticalNav>
                         <ul>
                             <li>
-                                <Link to="/admin">
-                                    Home
+                                <Link to="/admin/manageproducts">
+                                    Manage Products
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/admin/manageorders">
+                                    Manage Orders
                                 </Link>
                             </li>
                             <li>

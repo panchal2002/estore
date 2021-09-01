@@ -57,7 +57,8 @@ const Signup = props => {
       displayName,
       email,
       password,
-      confirmPassword
+      confirmPassword,
+      phone: 9999999999
     }));
   }
 

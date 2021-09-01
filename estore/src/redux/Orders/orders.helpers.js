@@ -1,6 +1,7 @@
 import { firestore } from '../../firebase/utils';
 
 export const handleSaveOrder = order => {
+    console.log(order)
     return new Promise((resolve, reject) => {
         firestore
             .collection('orders')
@@ -15,28 +16,52 @@ export const handleSaveOrder = order => {
     });
 };
 
-export const handleGetUserOrderHistory = uid => {
+export const handleGetUserOrderHistory = (payload) => {
     return new Promise((resolve, reject) => {
-        let ref = firestore.collection('orders').orderBy('orderCreatedDate');
-        ref = ref.where('orderUserID', '==', uid);
+        if (!payload.isAdmin) {
+            let ref = firestore.collection('orders').orderBy('orderCreatedDate', 'desc');
+            console.log(ref)
+            ref = ref.where('orderUserID', '==', payload.uid);
 
-        ref
-            .get()
-            .then(snap => {
-                const data = [
-                    ...snap.docs.map(doc => {
-                        return {
-                            ...doc.data(),
-                            documentID: doc.id
-                        }
-                    })
-                ];
+            ref
+                .get()
+                .then(snap => {
+                    const data = [
+                        ...snap.docs.map(doc => {
+                            return {
+                                ...doc.data(),
+                                documentID: doc.id
+                            }
+                        })
+                    ];
 
-                resolve({ data });
-            })
-            .catch(err => {
-                reject(err);
-            });
+                    resolve({ data });
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        } else if (payload.isAdmin) {
+            let ref = firestore.collection('orders').orderBy('orderCreatedDate', 'desc');
+            // console.log(ref)
+
+            ref
+                .get()
+                .then(snap => {
+                    const data = [
+                        ...snap.docs.map(doc => {
+                            return {
+                                ...doc.data(),
+                                documentID: doc.id
+                            }
+                        })
+                    ];
+
+                    resolve({ data });
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        }
 
 
     });
@@ -61,3 +86,8 @@ export const handleGetOrder = orderID => {
             })
     })
 }
+
+export const handleUpdateOrderApprovalStatus = (payload) => {
+    firestore.collection('orders').doc(payload.documentID).update({ approvalStatus: payload.approvalStatusText })
+}
+

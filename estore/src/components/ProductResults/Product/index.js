@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Button from './../../forms/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from './../../../redux/Cart/cart.actions';
+import { addProductToWishlist, removeWishlistItem } from '../../../redux/Wishlist/wishlist.actions';
+import { selectWishlistItems } from '../../../redux/Wishlist/wishlist.selectors';
+import { createStructuredSelector } from 'reselect';
+import { faHeart } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+
+const mapWishlistState = createStructuredSelector({
+    wishlistItems: selectWishlistItems
+});
 
 const Product = (product) => {
+    const { wishlistItems } = useSelector(mapWishlistState);
+    const [addedInWishlist, setAddedInWishlist] = useState(false);
+
+    useEffect(() => {
+        if (wishlistItems.find(wishlistItem => wishlistItem.documentID === product.documentID)) {
+            setAddedInWishlist(true);
+        }
+    }, [])
     const dispatch = useDispatch();
     const history = useHistory();
     const {
@@ -29,6 +48,21 @@ const Product = (product) => {
         history.push('/cart');
     };
 
+
+    const handleAddToWishlist = (product) => {
+        if (!product) return;
+
+
+        if (wishlistItems.find(wishlistItem => wishlistItem.documentID === product.documentID)) {
+            dispatch(removeWishlistItem(product));
+            setAddedInWishlist(false);
+        }
+        else {
+            dispatch(addProductToWishlist(product));
+            setAddedInWishlist(true);
+        }
+    }
+
     return (
         <div className="product">
             <div className="thumb">
@@ -45,8 +79,11 @@ const Product = (product) => {
                                 {productName}
                             </Link>
                         </span>
-                    </li>
-                    <li>
+                        <span className="wishlistIcon" onClick={() => handleAddToWishlist(product)}>
+                            {addedInWishlist ?
+                                <FontAwesomeIcon icon={faHeartSolid} style={{ color: "#34495e", fontSize: "1.1em", }} />
+                                : <FontAwesomeIcon icon={faHeart} style={{ color: "#34495e", fontSize: "1.1em", }} />}
+                        </span><br />
                         <span className="price">
                             ₹{productPrice}
                         </span>

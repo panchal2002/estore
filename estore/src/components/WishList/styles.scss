@@ -1,0 +1,33 @@
+.wishlistItem{
+  border-bottom: 1px solid lightgray;
+}
+.wishlistItem img{
+  width: 100%;
+}
+
+.wishlistItem td{
+  padding: 0;
+  text-align: left;
+}
+.wishlistItem .imageCol{
+  width: 30%;
+}
+
+.wishlistItem .nameCol{
+  width: 63%;
+  font-size: 1.3rem;
+  padding-left: 0.5rem;
+}
+
+.nameCol a{
+  color: black;
+}
+
+.wishlistItem .removeCol{
+  width: 7%;
+  cursor: pointer;
+}
+  
+  @media only screen and (max-width: 980px) {
+  
+  }

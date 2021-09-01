@@ -24,10 +24,11 @@
       width: 95%;
       padding: 2rem;
       max-width: 60rem;
-      height: auto;
+      height: 50%;
       min-height: 40.0rem;
       pointer-events: all;
       max-height: 95vh;
       overflow: auto;
+      border: 1px solid black;
     }
   }

@@ -42,6 +42,16 @@ export const resetPasswordSuccess = () => ({
   payload: true
 });
 
+export const editUserProfile = userCredentials => ({
+  type: userTypes.EDIT_USER_PROFILE,
+  payload: userCredentials
+})
+
+export const editProfileSuccess = (userCredentials) => ({
+  type: userTypes.EDIT_PROFILE_SUCCESS,
+  payload: userCredentials
+})
+
 export const resetUserState = () => ({
   type: userTypes.RESET_USER_STATE
 });

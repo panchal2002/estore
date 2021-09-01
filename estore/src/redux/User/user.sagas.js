@@ -1,8 +1,8 @@
 import { takeLatest, call, all, put } from 'redux-saga/effects';
 import { auth, handleUserProfile, getCurrentUser, GoogleProvider } from './../../firebase/utils';
 import userTypes from './user.types';
-import { signInSuccess, signOutUserSuccess, resetPasswordSuccess, userError } from './user.actions';
-import { handleResetPasswordAPI } from './user.helpers';
+import { signInSuccess, signOutUserSuccess, resetPasswordSuccess, editProfileSuccess, userError } from './user.actions';
+import { handleResetPasswordAPI, handleEditUserProfile } from './user.helpers';
 
 export function* getSnapshotFromUserAuth(user, additionalData = {}) {
   try {
@@ -69,7 +69,8 @@ export function* signUpUser({ payload: {
   displayName,
   email,
   password,
-  confirmPassword
+  confirmPassword,
+  phone
 } }) {
 
   if (password !== confirmPassword) {
@@ -82,7 +83,7 @@ export function* signUpUser({ payload: {
 
   try {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-    const additionalData = { displayName };
+    const additionalData = { displayName, phone };
     yield getSnapshotFromUserAuth(user, additionalData);
 
   } catch (err) {
@@ -95,7 +96,7 @@ export function* onSignUpUserStart() {
   yield takeLatest(userTypes.SIGN_UP_USER_START, signUpUser);
 }
 
-export function* resetPassword({ payload: { email }}) {
+export function* resetPassword({ payload: { email } }) {
   try {
     yield call(handleResetPasswordAPI, email);
     yield put(
@@ -107,6 +108,33 @@ export function* resetPassword({ payload: { email }}) {
       userError(err)
     )
   }
+}
+
+export function* editUserProfile({ payload }) {
+  // console.log(payload.currentUser.displayName, payload.userName, payload.phone)
+  const currentUser = payload.currentUser;
+  const userName = payload.userName;
+  const phone = payload.phone;
+  const profileImageUrl = payload.profileImageUrl;
+  try {
+    yield handleEditUserProfile(payload);
+    yield put(
+      editProfileSuccess({
+        currentUser,
+        userName,
+        phone,
+        profileImageUrl
+      })
+    );
+  } catch (err) {
+    console.log(err);
+    // console.log(payload)
+  }
+
+}
+
+export function* onEditUserProfileStart() {
+  yield takeLatest(userTypes.EDIT_USER_PROFILE, editUserProfile);
 }
 
 export function* onResetPasswordStart() {
@@ -136,5 +164,6 @@ export default function* userSagas() {
     call(onSignUpUserStart),
     call(onResetPasswordStart),
     call(onGoogleSignInStart),
+    call(onEditUserProfileStart)
   ])
 }

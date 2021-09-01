@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserOrderHistory } from './../../redux/Orders/orders.actions';
 import OrderHistory from './../../components/OrderHistory';
@@ -14,9 +14,14 @@ const Dashboard = props => {
     const dispatch = useDispatch();
     const { currentUser, orderHistory } = useSelector(mapState);
 
+
+    const configManageOrder = {
+        uid: currentUser.id,
+        isAdmin: false
+    }
     useEffect(() => {
         dispatch(
-            getUserOrderHistory(currentUser.id)
+            getUserOrderHistory(configManageOrder)
         );
 
     }, []);

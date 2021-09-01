@@ -1,4 +1,4 @@
-import { auth } from './../../firebase/utils';
+import { auth, firestore } from './../../firebase/utils';
 
 export const handleResetPasswordAPI = (email) => {
   const config = {
@@ -16,3 +16,8 @@ export const handleResetPasswordAPI = (email) => {
       });
   });
 };
+
+export const handleEditUserProfile = (payload) => {
+  // console.log(payload.currentUser, payload.userName, payload.phone)
+  firestore.collection('users').doc(payload.currentUser.id).update({ displayName: payload.userName, phone: payload.phone, profileImage: payload.profileImageUrl })
+}

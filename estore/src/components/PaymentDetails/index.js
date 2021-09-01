@@ -39,6 +39,7 @@ const PaymentDetails = () => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
 
+    // console.log(itemCount)
     useEffect(() => {
         if (itemCount < 1) {
             history.push('/dashboard');
@@ -76,6 +77,8 @@ const PaymentDetails = () => {
             return;
         }
 
+        const userAddress = shippingAddress.line1 + ", " + shippingAddress.postal_code + ", " + shippingAddress.city + ", " + shippingAddress.state + ", " + shippingAddress.country;
+
 
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: "card",
@@ -88,7 +91,7 @@ const PaymentDetails = () => {
             }
         })
 
-        console.log(paymentMethod)
+        // console.log(userAddress)
 
 
         if (!error) {
@@ -102,6 +105,9 @@ const PaymentDetails = () => {
                 if (response.data.success) {
                     const configOrder = {
                         orderTotal: total,
+                        orderUserName: recipientName,
+                        orderAddress: userAddress,
+                        approvalStatus: 'Approved',
                         orderItems: cartItems.map(item => {
                             const { documentID, productThumbnail, productName,
                                 productPrice, quantity } = item;
@@ -125,7 +131,7 @@ const PaymentDetails = () => {
                 console.log("Error", error)
             }
         } else {
-            console.log(error.message + "q12121212")
+            console.log(error.message)
         }
 
     };
