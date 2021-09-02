@@ -20,7 +20,7 @@ export const handleGetUserOrderHistory = (payload) => {
     return new Promise((resolve, reject) => {
         if (!payload.isAdmin) {
             let ref = firestore.collection('orders').orderBy('orderCreatedDate', 'desc');
-            console.log(ref)
+            // console.log(ref)
             ref = ref.where('orderUserID', '==', payload.uid);
 
             ref

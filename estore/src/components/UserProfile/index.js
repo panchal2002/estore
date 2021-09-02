@@ -12,7 +12,7 @@ const UserProfile = props => {
             <ul>
                 <li>
                     <div className="img">
-                        <img src={currentUser.profileImage} />
+                        <img src={currentUser.profileImage ? currentUser.profileImage : userIMG} />
                     </div>
                 </li>
                 <li>

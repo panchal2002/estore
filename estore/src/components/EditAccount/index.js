@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase';
 import Button from '../forms/Button';
 import FormInput from '../forms/FormInput';
-import user from '../../assets/shopMens.jpg'
+import user from '../../assets/user.png'
 import Modal from '../Modal';
 import './styles.scss'
 import { editUserProfile } from '../../redux/User/user.actions';
@@ -17,7 +17,7 @@ const EditAccount = () => {
     const [hideModal, setHideModal] = useState(true);
     const [userName, setUserName] = useState(currentUser.displayName)
     const [phone, setPhone] = useState(currentUser.phone)
-    const [profileImage, setProfileImage] = useState(null)
+    const [profileImage, setProfileImage] = useState("")
     const toggleModal = () => setHideModal(!hideModal);
 
     const configModal = {
@@ -31,12 +31,15 @@ const EditAccount = () => {
 
     async function handleProfileImageSave() {
         let bucketName = 'images';
-        let file = profileImage[0];
-        let storageRef = firebase.storage().ref(`${bucketName}/${file.name}`);
-        await storageRef.put(file);
-
+        if (profileImage != "") {
+            let file = profileImage[0];
+            let storageRef = firebase.storage().ref(`${bucketName}/${file.name}`);
+            await storageRef.put(file);
+        }
+        let fileName = profileImage == "" ? "user.png" : profileImage[0].name;
+        // console.log(profileImage, fileName)
         let firebaseStorageRef = firebase.storage().ref();
-        let spaceRef = firebaseStorageRef.child(`images/${profileImage[0].name}`);
+        let spaceRef = firebaseStorageRef.child(`images/${fileName}`);
         let piu = '';
         await spaceRef.getDownloadURL().then((url) => {
             piu = url;
@@ -57,7 +60,7 @@ const EditAccount = () => {
 
         e.preventDefault();
         handleProfileImageSave().then((piu) => {
-            console.log(piu);
+            // console.log(piu);
             let profileImageUrl = piu.toString();
             const userCredentials = {
                 userName,
@@ -66,7 +69,7 @@ const EditAccount = () => {
                 currentUser
             }
 
-            console.log(userCredentials);
+            // console.log(userCredentials);
             dispatch(
                 editUserProfile(userCredentials)
             );
